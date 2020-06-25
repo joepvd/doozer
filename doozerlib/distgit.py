@@ -637,7 +637,7 @@ class ImageDistGitRepo(DistGitRepo):
         with self.build_lock:
             if not self.build_status:
                 raise IOError(
-                    "Error building image: %s (%s was waiting)" % (self.metadata.qualified_name, who_is_waiting))
+                    "Error building image: %s (%s was waiting)" % (self.metadata.qualified_key, who_is_waiting))
             else:
                 self.logger.info("Member successfully waited for me to build: %s" % who_is_waiting)
 
@@ -647,7 +647,7 @@ class ImageDistGitRepo(DistGitRepo):
             self.logger.info("Skipping image build since it is not included: %s" % image_name)
             return
         parent_dgr = image.distgit_repo()
-        parent_dgr.wait_for_build(self.metadata.qualified_name)
+        parent_dgr.wait_for_build(self.metadata.qualified_key)
         if terminate_event.is_set():
             raise KeyboardInterrupt()
 

@@ -88,6 +88,8 @@ class Metadata(object):
             self.namespace = self.config.distgit.namespace
 
         self.qualified_name = "%s/%s" % (self.namespace, self.name)
+        if self.config.distgit.repo is not Missing:
+            self.qualified_name = "%s/%s" % (self.namespace, self.config.distgit.repo)
         self.qualified_key = "%s/%s" % (self.namespace, self.distgit_key)
 
         # Includes information to identify the metadata being used with each log message

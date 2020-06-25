@@ -103,6 +103,7 @@ class TestImageDistGit(TestDistgit):
 
     def test_wait_for_build_with_build_status_false(self):
         metadata = flexmock(qualified_name="my-qualified-name",
+                            qualified_key="my-qualified-key",
                             config=flexmock(distgit=flexmock(branch="_irrelevant_")),
                             runtime=flexmock(branch="_irrelevant_"),
                             name="_irrelevant_",
@@ -116,7 +117,7 @@ class TestImageDistGit(TestDistgit):
             repo.wait_for_build("i-am-waiting")
             self.fail("Should have raised IOError")
         except IOError as e:
-            expected = "Error building image: my-qualified-name (i-am-waiting was waiting)"
+            expected = "Error building image: my-qualified-key (i-am-waiting was waiting)"
             actual = str(e)
             self.assertEqual(expected, actual)
 
